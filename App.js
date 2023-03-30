@@ -2,7 +2,7 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, Image, useWindowDimensions } from 'react-native';
 import { GestureDetector, GestureHandlerRootView, PinchGestureHandler } from 'react-native-gesture-handler';
 import Animated, { useAnimatedGestureHandler, useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
-
+import ZoomableImage from './ZoomableImage';
 export default function App() {
   const scaleZoom = useSharedValue(1);
   const tranlateXZoom = useSharedValue(0);
@@ -30,28 +30,32 @@ export default function App() {
   const rStyle = useAnimatedStyle(() => {
     return {
       transform: [
-        { translateX: tranlateXZoom.value },
-        { translateY: tranlateYZoom.value },
-        { translateX: -width / 2 },
-        { translateY: -height / 2 },
-        { scale: scaleZoom.value },
-        { translateX: -tranlateXZoom.value },
-        { translateY: -tranlateYZoom.value },
+
         { translateX: width / 2 },
         { translateY: height / 2 },
+        { translateX: -tranlateXZoom.value },
+        { translateY: -tranlateYZoom.value },
+        { scale: scaleZoom.value },
+
+        { translateX: -width / 2 },
+        { translateY: -height / 2 },
+        { translateX: tranlateXZoom.value },
+        { translateY: tranlateYZoom.value },
+
       ]
     }
   })
 
   return (
-    <GestureHandlerRootView>
-      <PinchGestureHandler onGestureEvent={pinchHandler}>
-        <AnimatedImage
-          source={{ uri: 'http://t1.gstatic.com/licensed-image?q=tbn:ANd9GcTHA8sTYngrF9FsGFcsv_vq3_ULeEG7DvrsIJLohckJnRPw4XBAx-Z9wQ6XOhMc-pzpaijFkpUWC86SKqE' }}
-          style={[styles.image, rStyle]}
-        />
-      </PinchGestureHandler>
-    </GestureHandlerRootView>
+    // <GestureHandlerRootView>
+    //   <PinchGestureHandler onGestureEvent={pinchHandler}>
+    //     <AnimatedImage
+    //       source={{ uri: 'http://t1.gstatic.com/licensed-image?q=tbn:ANd9GcTHA8sTYngrF9FsGFcsv_vq3_ULeEG7DvrsIJLohckJnRPw4XBAx-Z9wQ6XOhMc-pzpaijFkpUWC86SKqE' }}
+    //       style={[styles.image, rStyle]}
+    //     />
+    //   </PinchGestureHandler>
+    // </GestureHandlerRootView>
+    <ZoomableImage />
   );
 }
 
