@@ -1,0 +1,1 @@
+# react-native_pinch-gesture-handler
